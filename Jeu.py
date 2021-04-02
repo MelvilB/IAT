@@ -8,10 +8,10 @@ class Jeu:
         self.previous_guesses = [] #[[candidats], [scores]]
 
     def jouer(self, guess, display=False):
-        self.previous_guesses.append([guess, self.score(self.compare(self.target, guess))])
         (p, m) = self.compare(self.target, guess)
         if display:
             print('{} : p={} m={}, score={}, fitness last move={}'.format(guess, p, m, self.score((p, m)), self.fitness(guess)))
+        self.previous_guesses.append([guess, self.score((p, m))])
         return (p, m)
 
     def score(self, pm):
