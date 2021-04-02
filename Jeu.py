@@ -9,9 +9,10 @@ class Jeu:
 
     def jouer(self, guess, display=False):
         self.previous_guesses.append([guess, self.score(self.compare(self.target, guess))])
+        (p, m) = self.compare(self.target, guess)
         if display:
-            self.display_game()
-        return self.compare(self.target, guess)
+            print('{} : p={} m={}, score={}, fitness last move={}'.format(guess, p, m, self.score((p, m)), self.fitness(guess)))
+        return (p, m)
 
     def score(self, pm):
         return (3*pm[0]+pm[1])
@@ -41,11 +42,4 @@ class Jeu:
             fit += self.evaluation(current_guess, previous_guess)
         return fit
 
-    def display_game(self):
-        print('T : {}'.format(self.target))
-        print('--------------')
-        i = 1
-        for guess in self.previous_guesses:
-            (p, m) = self.compare(self.target, guess[0])
-            print('{} : {}, p={} m={}, score={}, fitness last move={}'.format(i, guess[0], p, m, guess[1], self.fitness(guess[0])))
-            i +=1
+

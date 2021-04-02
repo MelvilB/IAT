@@ -79,7 +79,7 @@ def procreate(guesses, crossover_prob, mutation_prob):
         next_gen.append(guesses[0])
     return next_gen
 
-def select_best_geneticly(game, guesses, number=20, min_fitness = 25, crossover_prob=0.5, mutation_prob=0.1):
+def select_best_geneticly(game, guesses, number=20, min_fitness = 30, crossover_prob=0.5, mutation_prob=0.1):
     best = None
     while True:
         guesses = sort_by_fitness(game, guesses)
@@ -95,6 +95,5 @@ if __name__ == '__main__':
     result = game.jouer(init_guess[0], display=True)
     while result != (4, 0):
         guesses = random_guess(number = 100)
-        result=game.jouer(select_best_geneticly(game, guesses))
-    game.display_game()
+        result=game.jouer(select_best_geneticly(game, guesses), display=True)
 
