@@ -1,6 +1,7 @@
 from Jeu import Jeu
 
 
+
 if __name__ == '__main__':
     jeu = Jeu()
     result = (0, 0)

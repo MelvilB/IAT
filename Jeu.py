@@ -14,7 +14,7 @@ class Jeu:
         return self.compare(self.target, guess)
 
     def score(self, pm):
-        return (2*pm[0]+pm[1])
+        return (3*pm[0]+pm[1])
 
     def compare(self, target, guess):
         p = m = i = 0
@@ -35,9 +35,9 @@ class Jeu:
         #abs(score_vraie_solution-score(comp(target=prev_guess, guess= current_guess)))
         return (abs(previous_guess[1]-self.score(self.compare(previous_guess[0], current_guess))))
 
-    def fitness(self, current_guess, previous_guesses):
+    def fitness(self, current_guess):
         fit = 0
-        for previous_guess in previous_guesses:
+        for previous_guess in self.previous_guesses:
             fit += self.evaluation(current_guess, previous_guess)
         return fit
 
@@ -47,5 +47,5 @@ class Jeu:
         i = 1
         for guess in self.previous_guesses:
             (p, m) = self.compare(self.target, guess[0])
-            print('{} : {}, p={} m={}, score={}'.format(i, guess[0], p, m, guess[1]))
+            print('{} : {}, p={} m={}, score={}, fitness last move={}'.format(i, guess[0], p, m, guess[1], self.fitness(guess[0])))
             i +=1
