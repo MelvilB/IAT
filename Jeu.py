@@ -19,7 +19,7 @@ class Jeu:
         return (p, m)
 
     def score(self, pm):
-        return (3*pm[0]+pm[1])
+        return (10*pm[0]+pm[1])
 
     def compare(self, target, guess):
         p = m = i = 0

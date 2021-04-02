@@ -84,19 +84,19 @@ def procreate(guesses, crossover_prob, mutation_prob):
 def select_best_geneticly(game, max_iter = 20, initial_pop = 200, selected_pop=40, min_fitness = 30, crossover_prob=0.5, mutation_prob=0.1):
     best = None
     guesses = random_guess(number = initial_pop)
-    for i in range(max_iter):
-        guesses = sort_by_fitness(game, guesses)
-        guesses = guesses[:selected_pop]
-        guesses = procreate(guesses, crossover_prob, mutation_prob)
-        best = sort_by_fitness(game, guesses)[0]
-        if game.fitness(best) <= min_fitness:
-            return best
-    return best
+    while True:
+        for i in range(max_iter):
+            guesses = sort_by_fitness(game, guesses)
+            guesses = guesses[:selected_pop]
+            guesses = procreate(guesses, crossover_prob, mutation_prob)
+            best = sort_by_fitness(game, guesses)[0]
+            if game.fitness(best) <= min_fitness:
+                return best
 
-def play_game(max_iter = 20, initial_pop = 200, selected_pop=40, min_fitness = 30, crossover_prob=0.5, mutation_prob=0.1):
+def play_game(max_iter = 15, initial_pop = 80, selected_pop=25, min_fitness = 25, crossover_prob=0.5, mutation_prob=0.06):
     game = Jeu()
-    init_guess = random_guess()
-    result = game.jouer(init_guess[0], display=True)  
+    init_guess = [1,2,3,4]
+    result = game.jouer(init_guess, display=True)  
     while result != (4, 0):
         result=game.jouer(select_best_geneticly(game), display=True)
     return game.try_counter
@@ -104,7 +104,7 @@ def play_game(max_iter = 20, initial_pop = 200, selected_pop=40, min_fitness = 3
 
 if __name__ == '__main__':
     tries = []
-    for i in range(100):
+    for i in range(200):
         tries.append(play_game())
     plt.hist(tries, bins=20)
     plt.show()
