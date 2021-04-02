@@ -1,5 +1,7 @@
 from Jeu import Jeu
 import random
+import matplotlib.pyplot as plt
+import numpy as np
 
 def random_guess(number = 1):
     tab = []
@@ -79,21 +81,30 @@ def procreate(guesses, crossover_prob, mutation_prob):
         next_gen.append(guesses[0])
     return next_gen
 
-def select_best_geneticly(game, guesses, number=20, min_fitness = 30, crossover_prob=0.5, mutation_prob=0.1):
+def select_best_geneticly(game, max_iter = 20, initial_pop = 200, selected_pop=40, min_fitness = 30, crossover_prob=0.5, mutation_prob=0.1):
     best = None
-    while True:
+    guesses = random_guess(number = initial_pop)
+    for i in range(max_iter):
         guesses = sort_by_fitness(game, guesses)
-        guesses = guesses[:number]
+        guesses = guesses[:selected_pop]
         guesses = procreate(guesses, crossover_prob, mutation_prob)
         best = sort_by_fitness(game, guesses)[0]
         if game.fitness(best) <= min_fitness:
             return best
+    return best
 
-if __name__ == '__main__':
+def play_game(max_iter = 20, initial_pop = 200, selected_pop=40, min_fitness = 30, crossover_prob=0.5, mutation_prob=0.1):
     game = Jeu()
     init_guess = random_guess()
-    result = game.jouer(init_guess[0], display=True)
+    result = game.jouer(init_guess[0], display=True)  
     while result != (4, 0):
-        guesses = random_guess(number = 100)
-        result=game.jouer(select_best_geneticly(game, guesses), display=True)
+        result=game.jouer(select_best_geneticly(game), display=True)
+    return game.try_counter
 
+
+if __name__ == '__main__':
+    tries = []
+    for i in range(100):
+        tries.append(play_game())
+    plt.hist(tries, bins=20)
+    plt.show()

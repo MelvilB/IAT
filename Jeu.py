@@ -6,11 +6,15 @@ class Jeu:
     def __init__(self):
         self.target = [random.randint(1, 8) for i in range(4)]
         self.previous_guesses = [] #[[candidats], [scores]]
+        self.try_counter = 0
 
     def jouer(self, guess, display=False):
         (p, m) = self.compare(self.target, guess)
+        self.try_counter += 1
         if display:
             print('{} : p={} m={}, score={}, fitness last move={}'.format(guess, p, m, self.score((p, m)), self.fitness(guess)))
+            if (p, m) == (4, 0):
+                print('Target {}, en {} essais'.format(self.target, self.try_counter))
         self.previous_guesses.append([guess, self.score((p, m))])
         return (p, m)
 
