@@ -18,14 +18,14 @@ class Jeu:
 
     def compare(self, target, guess):
         p = m = i = 0
-        for value in guess: #pour chaque case
+        for value in target: #pour chaque case
             match = False
-            if value == target[i]: #on a bonne pos + bonne couleur ?
+            if value == guess[i]: #on a bonne pos + bonne couleur ?
                 p += 1
                 match = True
             if not match: #si non, on a cette couleur ailleurs ?
-                for target_value in target:
-                    if target_value == value:
+                for guess_value in guess:
+                    if guess_value == value:
                         m += 1
                         break
             i += 1
