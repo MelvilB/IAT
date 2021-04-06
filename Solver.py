@@ -112,7 +112,7 @@ def select_best_geneticly(game, max_iter = 20, initial_pop = 100, selected_pop=6
                     return best
         min_fitness += 1
 
-def play_game(max_iter = 20, initial_pop = 80, selected_pop=25, min_fitness = 12, crossover_prob=0.5, mutation_prob=0.03):
+def play_game():
     game = Jeu()
     init_guess = [1,2,3,4]
     result = game.jouer(init_guess, display=True)  
