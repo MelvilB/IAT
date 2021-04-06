@@ -19,7 +19,7 @@ class Jeu:
         return (p, m)
 
     def score(self, pm):
-        return (10*pm[0]+pm[1])
+        return (5*pm[0]+0.5*pm[1])
 
     def compare(self, target, guess):
         p = m = i = 0
@@ -38,12 +38,13 @@ class Jeu:
 
     def evaluation(self, current_guess, previous_guess):
         #abs(score_vraie_solution-score(comp(target=prev_guess, guess= current_guess)))
-        return (abs(previous_guess[1]-self.score(self.compare(previous_guess[0], current_guess))))
+        return (abs(previous_guess[1]-self.score(self.compare(current_guess, previous_guess[0]))))
 
     def fitness(self, current_guess):
         fit = 0
         for previous_guess in self.previous_guesses:
             fit += self.evaluation(current_guess, previous_guess)
+        #fit += 2 * 4 * (len(self.previous_guesses)-1)
         return fit
 
 
